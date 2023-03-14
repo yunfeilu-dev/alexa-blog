@@ -73,11 +73,11 @@ class GptSearchIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         
-        slot_values = ask_utils.get_slot_value_v2(handler_input, "GptQuery")
+        slot_values = ask_utils.get_slot_value_v2(handler_input, "gpt_query")
         query = slot_values.value
         openai.api_key = os.getenv("OPENAI_API_KEY")
         
-        response = openai.Completion.create(model="gpt-3.5-turbo", prompt=query, temperature=1, max_tokens=128)
+        response = openai.Completion.create(engine="text-davinci-003", prompt=query, temperature=0.5, stop=None, n = 1, max_tokens=256)
         print(response)
         
         speak_output = response.choices[0].text
@@ -237,4 +237,4 @@ sb.add_global_request_interceptor(LocalizationInterceptor())
 
 sb.add_exception_handler(CatchAllExceptionHandler())
 
-lambda_handler = sb.lambda_handler()
+handler = sb.lambda_handler()
