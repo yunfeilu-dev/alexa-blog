@@ -17,7 +17,6 @@ import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
-from alexa import data
 
 from ask_sdk_model.ui import SimpleCard
 
@@ -36,7 +35,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.WELCOME_MESSAGE)
+        speak_output = "hello world"
 
         return (
             handler_input.response_builder
@@ -55,7 +54,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.HELLO_MSG)
+        speak_output = "hello world"
  
         return (
             handler_input.response_builder
@@ -100,7 +99,7 @@ class HelpIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.HELP_MSG)
+        speak_output = "what can I help"
 
         return (
             handler_input.response_builder
@@ -120,7 +119,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.GOODBYE_MSG)
+        speak_output = "GoodBye"
 
         return (
             handler_input.response_builder
@@ -171,7 +170,7 @@ class IntentReflectorHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
         intent_name = ask_utils.get_intent_name(handler_input)
-        speak_output = _(data.REFLECTOR_MSG).format(intent_name)
+        speak_output = intent_name
 
         return (
             handler_input.response_builder
@@ -194,7 +193,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
         _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.ERROR)
+        speak_output = "There is an ERROR, please try it later"
 
         return (
             handler_input.response_builder
@@ -238,4 +237,4 @@ sb.add_global_request_interceptor(LocalizationInterceptor())
 
 sb.add_exception_handler(CatchAllExceptionHandler())
 
-handler = sb.lambda_handler()
+lambda_handler = sb.lambda_handler()
